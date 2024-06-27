@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MLS_UI.Models.PatientDetectionDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Detection des patients</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Age)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalUniqueTrigger)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RiskLevel)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Age)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalUniqueTrigger)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RiskLevel)
+                </td>
+                <td>
+                    @*<a asp-action="Update" asp-route-id="@item.Id" class="btn btn-secondary">Mettre à jour</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Supprimer</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,90 @@
+﻿@model IEnumerable<MLS_UI.Models.PatientDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Liste des patients</h2>
+
+<div class="alert alert-info">Vous êtes @ViewData["Role"]</div>
+
+@* @using (Html.BeginForm("Index", "Patients", FormMethod.Get))
+@using (Html.BeginForm("FilterPatients", "PatientsManager", FormMethod.Get))
+{
+    <div class="form-group">
+        @Html.Label("Filtrer par patient : ")
+        @Html.DropDownList("id", new SelectList(Model, "Id", "LastName"), "Sélectionner un patient", new { @class = "form-control" })
+    </div>
+    <button type="submit" class="btn btn-primary">Filtrer</button>
+}
+<p>
+
+</p> *@
+<p>
+    <a asp-action="Create" class="btn btn-primary">Ajouter un patient</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BirthDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNumber)
+                </td>
+                @if (User.IsInRole("organisateur"))
+                {
+                    <td>
+                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary">Mettre à jour</a>
+                    </td>
+                }
+                @if (User.IsInRole("praticien") || User.IsInRole("admin"))
+                {
+                    <td>
+                        <a asp-action="Update" asp-route-id="@item.Id" class="btn btn-primary">Mettre à jour</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-secondary">Details</a> |
+                        <a asp-action="AddNote" asp-route-patientId="@item.Id" asp-route-patientName="@item.LastName" class="btn btn-secondary">Notes</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Supprimer</a>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

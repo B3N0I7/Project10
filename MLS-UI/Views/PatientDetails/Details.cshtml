@@ -1,0 +1,103 @@
+﻿@model MLS_UI.Models.PatientDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+<h2>Détails du patient</h2>
+
+<div>
+    <h4>@Model.Patient.FirstName @Model.Patient.LastName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient.BirthDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Patient.BirthDate.ToShortDateString()
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient.Gender)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Patient.Gender
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient.PostalAddress)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Patient.PostalAddress
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient.PhoneNumber)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Patient.PhoneNumber
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient.Age)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Patient.Age
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Patient.RiskLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Patient.RiskLevel
+        </dd>
+    </dl>
+</div>
+
+<h3>Notes</h3>
+@if (Model.Patient.Notes.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var note in Model.Patient.Notes)
+            {
+                <tr>
+                    <td>@note.Patient</td>
+                    <td>@note.PatientNote</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Aucune note trouvée.</p>
+}
+
+<h3>Triggers</h3>
+@if (Model.Patient.TriggersCount.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Trigger</th>
+                <th>Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var trigger in Model.Patient.TriggersCount)
+            {
+                <tr>
+                    <td>@trigger.Key</td>
+                    <td>@trigger.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Aucun trigger trouvé.</p>
+}

@@ -1,0 +1,42 @@
+﻿@model MLS_UI.Models.Login
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="~/css/login-mls.css" />
+        <title>Login</title>
+    </head>
+    <body>
+        <div class="container">
+            <img src="~/img/logo-mls.png" />
+        </div>
+        <form asp-action="Login" method="post">
+            <div class="container">
+                <label asp-for="Email"><b>Email</b></label>
+                <input type="text" asp-for="Email" placeholder="Enter Email">
+                <div class="msg">
+                    <span class="err" asp-validation-for="Email"></span>
+                </div>
+                <label asp-for="Password"><b>Password</b></label>
+                <input type="password" asp-for="Password" placeholder="Enter Password">
+                <div class="msg">
+                    <span asp-validation-for="Password" class="err"></span>
+                </div>
+    
+                @if (TempData["msg"] != null)
+                {
+                    <div class="msg">@TempData["msg"]</div>
+                }
+    
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </body>
+</html>

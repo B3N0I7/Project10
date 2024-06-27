@@ -1,0 +1,103 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "http://gateway-api:8080"
+  },
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/patientsmanager/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "patient-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/patientsmanager/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/patientsmanager",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "patient-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/patientsmanager",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/patientnote/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "note-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/patientnote/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/patientnote",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "note-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/patientnote",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/mongodb",
+      "DownstreamScheme": "mongodb",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "note-db",
+          "Port": 27017
+        }
+      ],
+      "UpstreamPathTemplate": "/mongodb",
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/detection/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "detection-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/patientdetection/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/detection",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "detection-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/patientdetection",
+      "UpstreamHttpMethod": [ "Get", "Post", "Put" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/detection/details/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "detection-api",
+          "Port": 8080
+        }
+      ],
+      "UpstreamPathTemplate": "/gateway/patientdetection/details/{id}",
+      "UpstreamHttpMethod": [ "Get", "Delete", "Put" ]
+    }
+  ]
+}

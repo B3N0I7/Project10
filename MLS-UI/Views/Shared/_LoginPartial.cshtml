@@ -1,0 +1,11 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<ul class="navbar-text">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item">
+            Bienvenue @User.Identity?.Name.Split("@").FirstOrDefault()
+        </li>
+    }
+</ul>

@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+  patient-api:
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+    ports: 
+        - "8080"
+  note-api:
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+    ports: 
+        - "8080"
+  detection-api:
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+    ports: 
+        - "8080"
+  gateway-api:
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+    ports: 
+        - "8080"
+  mls-ui:
+    environment:
+        - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+        - "8080"

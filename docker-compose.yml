@@ -1,0 +1,134 @@
+version: '3.7'
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  patient-db:
+    container_name: patient-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+        ACCEPT_EULA: Y
+        SA_PASSWORD: Password@12345#
+    networks:
+        - backend
+    ports:
+        - 18011:1433
+    volumes:
+        - patient-data:/var/opt/mssql
+
+  patient-api:
+    container_name: patient-api
+    image: ${DOCKER_REGISTRY-}patient-api
+    build:
+        context: .
+        dockerfile: patientms/Dockerfile
+    networks:
+        - backend
+    ports:
+        - 18012:8080
+    environment:
+        DB_HOST: patient-db
+        DB_PORT: 1433
+        DB_NAME: patientdb
+        DB_USER: SA
+        DB_SA_PASSWORD: Password@12345#
+    depends_on: 
+        - patient-db
+
+  note-db:
+    container_name: note-db
+    image: mongo:latest
+    # environment:
+    #     DB_USER: root
+    #     DB_PASSWORD: rootpassword
+    networks:
+        - backend
+    ports:
+        - 18013:27017
+    volumes:
+        - note-data:/data/db
+        # - note-data:/var/opt/mongodb
+        # - ./initdb:/docker-entrypoint-initdb.d
+        # mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]
+  note-api:
+    container_name: note-api
+    image: ${DOCKER_REGISTRY-}note-api
+    build:
+        context: .
+        dockerfile: notems/Dockerfile
+    ports:
+        - 18014:8080
+    networks:
+        - backend
+    # environment:
+    #     DB_HOST: note-db
+    #     DB_PORT: 27017
+    #     DB_NAME: MLS-PatientNote
+    #     DB_USER: root
+    #     DB_PASSWORD: rootpassword
+    depends_on:
+        - note-db
+
+  detection-api:
+    container_name: detection-api
+    image: ${DOCKER_REGISTRY-}detection-api
+    build:
+        context: .
+        dockerfile: patientdetection/Dockerfile
+    ports:
+        - 18015:8080
+    networks:
+        - backend
+
+  gateway-api:
+    container_name: gateway-api
+    image: ${DOCKER_REGISTRY-}gateway-api
+    build:
+        context: .
+        dockerfile: ocelot/Dockerfile
+    ports:
+        - 18016:8080
+    networks:
+        - backend
+
+  mls-db:
+    container_name: mls-db
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+        ACCEPT_EULA: Y
+        SA_PASSWORD: Password@12345#
+    networks:
+        - backend
+    ports:
+        - 18017:1433
+    volumes:
+        - mls-data:/var/opt/mssql
+
+  mls-ui:
+    container_name: mls-ui
+    image: ${DOCKER_REGISTRY-}mls-ui
+    build:
+        context: .
+        dockerfile: mls-ui/Dockerfile
+    networks:
+        - backend
+    ports:
+        - 18018:8080
+    environment:
+        DatabaseServer: mls-db
+        DatabasePort: 1433
+        DatabaseUser: SA
+        DatabasePassword: Password@12345#
+        DatabaseName: mlsdb
+    depends_on:
+        - mls-db
+volumes:
+    mls-data:
+        driver: local
+    patient-data:
+        driver: local
+    note-data:
+        driver: local
+      

@@ -1,0 +1,6 @@
+@PatientMS_HostAddress = http://localhost:7001
+
+GET {{PatientMS_HostAddress}}//
+Accept: application/json
+
+###

@@ -1,0 +1,34 @@
+﻿@model MLS_UI.Models.NoteDto
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Ajouter une note</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PatientId" class="control-label"></label>
+                <input asp-for="PatientId" class="form-control" />
+                <span asp-validation-for="PatientId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Patient" class="control-label"></label>
+                <input asp-for="Patient" class="form-control" />
+                <span asp-validation-for="Patient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PatientNote" class="control-label"></label>
+                <input asp-for="PatientNote" class="form-control" />
+                <span asp-validation-for="PatientNote" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Enregistrer" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
